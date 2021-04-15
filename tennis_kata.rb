@@ -1,21 +1,50 @@
 class TennisKata
-  def score
+  def same_score?
+    @first_player_get_score_times == @second_player_get_score_times
+  end
 
-    if @first_player_get_score_times == 1 || @first_player_get_score_times == 2
-      return "#{@score_map[@first_player_get_score_times]} love"
+  def deuce?
+    @first_player_get_score_times >= 3
+  end
+
+  def score
+    if same_score?
+      if deuce?
+        "deuce"
+      else
+        "#{@score_map[@first_player_get_score_times]} all"
+      end
+    else
+      if @second_player_get_score_times == 0
+        if @first_player_get_score_times == 1 || @first_player_get_score_times == 2 || @first_player_get_score_times == 3
+          return "#{@score_map[@first_player_get_score_times]} love"
+        end
+      elsif @first_player_get_score_times == 0
+        if @second_player_get_score_times == 1 || @second_player_get_score_times == 2 || @second_player_get_score_times == 3
+          return "love #{@score_map[@second_player_get_score_times]}"
+        end
+      end
     end
-    return 'love all'
+
   end
 
   def first_player_score
     @first_player_get_score_times += 1
   end
 
+  def second_player_score
+    @second_player_get_score_times += 1
+  end
+
   def initialize
     @first_player_get_score_times = 0
+    @second_player_get_score_times = 0
     @score_map = {
+      0 => 'love',
       1 => 'fifteen',
-      2 => 'thirty'
+      2 => 'thirty',
+      3 => 'forty'
     }
   end
+
 end
