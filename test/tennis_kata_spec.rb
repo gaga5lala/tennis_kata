@@ -86,11 +86,29 @@ describe 'TennisKata' do
         given_first_player_score(1)
         score_should_be('gaga adv')
       end
-
     end
-
+    context 'when second player adv' do
+      it 'should joey adv' do
+        given_deuce
+        given_second_player_score(1)
+        score_should_be('joey adv')
+      end
+    end
+    context "when first player win" do
+      it 'should gaga win' do
+        given_deuce
+        given_first_player_score(2)
+        score_should_be('gaga win')
+      end
+    end
+    context "when second player win" do
+      it 'should joey win' do
+        given_deuce
+        given_second_player_score(2)
+        score_should_be('joey win')
+      end
+    end
   end
-
 end
 
 require_relative '../tennis_kata'
